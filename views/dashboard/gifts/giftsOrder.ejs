@@ -1,0 +1,70 @@
+<%- include('../../dashboard/partials/top.ejs') %>
+    <div class="main-content">
+        <!-- Row start -->
+    <div class="content">
+    <div class="tableTitle">Mes commande cadeaux</div>
+    <div class="tableContainer">
+            <table id="example" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
+                width="100%">
+                <thead>
+                    <tr>
+                        <td>title</td>
+                        <td>statut</td>
+                        <td>date de commande</td>
+                        <td>date de valilidation</td>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>title</td>
+                        <td>statut</td>
+                        <td>date de commande</td>
+                        <td>date de valilidation</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    </div>
+<script>
+
+    $(document).ready(function () {
+        var table = $('#example').dataTable({
+            responsive: true,
+            ajax: "/api/v1/dashboard/gift-orders",
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/fr-FR.json',
+            },
+            "columns": [
+                { 'data': 'title' },
+                { 'data': 'status' },
+                {
+                    "data": "date",
+                    "render": function (data) {
+                        if(data) {
+                            const date = new Date(data);
+                            return date.toISOString().substring(0,10);
+                        }
+                        return "";
+                    }
+                },
+                {
+                    "data": "validation_date",
+                    "render": function (data) {
+                        if(data) {
+                            const date = new Date(data);
+                            return date.toISOString().substring(0,10);
+                        }
+                        return "";
+                        
+                    }
+                },
+            ]
+        });
+        new $.fn.dataTable.FixedHeader(table);
+    });
+</script>
+<%- include('../../dashboard/partials/bottom.ejs') %>

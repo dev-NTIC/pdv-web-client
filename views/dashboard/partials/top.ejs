@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<meta name="description" content="Stream pdv" />
+		<link rel="shortcut icon" href="img/Favicon_Stream2.ico" />
+		<title>Stream PDV</title>
+
+		<!-- Common CSS -->
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="fonts/icomoon/icomoon.css" />
+		<link rel="stylesheet" href="css/main.min.css" />
+
+		<!-- Other CSS includes plugins - Cleanedup unnecessary CSS -->
+		<!-- Chartist css -->
+		<link href="vendor/chartist/css/chartist.min.css" rel="stylesheet" />
+		<link href="vendor/chartist/css/chartist-custom.css" rel="stylesheet" />
+
+
+    		<!-- jQuery first, then Tether, then other JS. -->
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="vendor/unifyMenu/unifyMenu.js"></script>
+		<script src="vendor/onoffcanvas/onoffcanvas.js"></script>
+		<script src="js/moment.js"></script>
+
+		<!-- Slimscroll JS -->
+		<script src="vendor/slimscroll/slimscroll.min.js"></script>
+		<script src="vendor/slimscroll/custom-scrollbar.js"></script>
+
+		<!-- Chartist JS -->
+		<script src="vendor/chartist/js/chartist.min.js"></script>
+		<script src="vendor/chartist/js/chartist-tooltip.js"></script>
+		<script src="vendor/chartist/js/custom/custom-line-chart.js"></script>
+		<script src="vendor/chartist/js/custom/custom-line-chart1.js"></script>
+		<script src="vendor/chartist/js/custom/custom-area-chart.js"></script>
+		<script src="vendor/chartist/js/custom/donut-chart2.js"></script>
+		<script src="vendor/chartist/js/custom/custom-line-chart4.js"></script>
+
+		<!-- Common JS -->
+		<script src="js/common.js"></script>
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap.min.css"
+    integrity="sha512-BMbq2It2D3J17/C7aRklzOODG1IQ3+MHw3ifzBHMBwGO/0yUqYmsStgBjI0z5EYlaDEFnvYV7gNYdD3vFLRKsA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.3.2/css/fixedHeader.bootstrap.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"
+    integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.3.2/js/dataTables.fixedHeader.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap.min.js"></script>
+
+<style>
+
+	.app-container {
+		background: transparent !important;
+	}
+
+	.container-fluid {
+		margin: 0;
+		padding:0;
+	}
+  .row {
+    width:100%;
+	margin: 0;
+	padding: 0;
+  }
+  .tableTitle {
+    text-indent: 20px;
+    width:100%;
+    height:50px;
+    background: white;
+    padding:25px;
+    font-size: 25px;
+  }
+
+  .tableContainer {
+	  background:white;
+        width: 100%;
+        padding:5%;
+
+  }
+
+  .side-nav .unifyMenu ul a  {
+	position: relative;
+    padding: 15px 40px;
+	text-decoration: none;
+} 
+
+.side-nav .unifyMenu i  {
+    margin-right: 15px;
+	text-decoration: none !important;
+}
+
+.main-content {
+    position: relative !important;
+    margin-bottom: auto !important;
+    padding: 1.5rem !important;
+    min-height: fit-content !important;
+    background: #f5f6fa !important;
+}
+</style>
+	</head>
+
+	<body>
+
+		<!-- Loading starts -->
+		<div class="loading-wrapper">
+			<div class="loading">
+				<div class="img"></div>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+		<!-- Loading ends -->
+
+		<!-- BEGIN .app-wrap -->
+		<div class="app-wrap">
+			<!-- BEGIN .app-heading -->
+			<header class="app-header">
+				<div class="container-fluid">
+					<div class="row gutters">
+						<div class="col-md-5 col-sm-3 col-4">
+							<a class="mini-nav-btn" href="#" id="app-side-mini-toggler">
+								<i class="icon-menu5"></i>
+							</a>
+							<a href="#app-side" data-toggle="onoffcanvas" class="onoffcanvas-toggler" aria-expanded="true">
+								<i class="icon-chevron-thin-left"></i>
+							</a>
+						</div>
+						<div class="col-md-2 col-sm-6 col-4">
+							<a href="index.html" class="logo">
+								<img src="/dashboard/img/stream.png" alt="Stream pdv" />
+							</a>
+						</div>
+					
+					</div>
+				</div>
+			</header>
+			<!-- END: .app-heading -->
+			<!-- BEGIN .app-container -->
+			<div class="app-container">
+				<!-- BEGIN .app-side -->
+				<aside class="app-side" id="app-side">
+					<!-- BEGIN .side-content -->
+					<div class="side-content ">
+						<!-- BEGIN .user-actions -->
+					
+						<!-- END .user-actions -->
+						<!-- BEGIN .side-nav -->
+						<nav class="side-nav">
+							<!-- BEGIN: side-nav-content -->
+							<ul class="unifyMenu" id="unifyMenu">
+								<li class="active">
+									
+									<ul aria-expanded="false" class="collapse in">
+										<li>
+											<a href='/dashboard/products' class="current-page menulink"><i class="icon-laptop4"></i> Mes Produits</a>
+										</li>
+									</ul>
+								</li>
+								<li class="active">
+
+									<ul aria-expanded="false" class="collapse in">
+										<li>
+											<a href='/dashboard/sales' class="current-page menulink"><i class="icon-wallet"></i> Mes ventes</a>
+										</li>
+										<li>
+											<a href='/dashboard/new-sale' class="menulink"><i class="icon-pricetags"></i> Nouvelle vente</a>
+										</li>
+									</ul>
+								</li>
+                                <li class="active">
+									
+									<ul aria-expanded="false" class="collapse in">
+										<li>
+											<a href='/dashboard/profile' class="current-page menulink"><i class="icon-profile-male"></i> Mon profile</a>
+										</li>
+										<li>
+											<a href='/dashboard/profileupdate' class="menulink"><i class="icon-pencil"></i>Metre à jours profile</a>
+										</li>
+										
+									</ul>
+								</li>
+                                <li class="active">
+									<ul aria-expanded="false" class="collapse in">
+										<li>
+											<a href='/dashboard/gifts' class="current-page menulink"> <i class="icon-gift"></i>liste des cadeaux</a>
+										</li>
+										<li>
+											<a href='/dashboard/gifts-orders' class="menulink"><i class="icon-document3"></i>Mes commandes de cadeaux</a>
+										</li>
+
+										<li>
+											<a href="/logout" style="position: relative;top: 55px;" class="menulink"><i class="icon-subdirectory_arrow_right"></i>Déconnexion</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<!-- END: side-nav-content -->
+						</nav>
+						<!-- END: .side-nav -->
+					</div>
+					<!-- END: .side-content -->
+				</aside>
+				<!-- END: .app-side -->
+
+				<!-- BEGIN .app-main -->
+				<div class="app-main">
+					<!-- BEGIN .main-heading -->
+					<header class="main-heading">
+						<div class="container-fluid">
+							<div class="">

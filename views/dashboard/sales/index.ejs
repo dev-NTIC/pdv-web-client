@@ -1,0 +1,70 @@
+<%- include('../../dashboard/partials/top.ejs') %>
+    <div class="main-content">
+        <!-- Row start -->
+    <div class="content">
+    <div class="tableTitle">Liste des ventes</div>
+    <div class="tableContainer">
+        <table id="example" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
+            width="100%">
+            <thead>
+                <tr>
+                    <td>numero de serie</td>
+                    <td>date</td>
+                    <td>Product</td>
+                    <td>nom</td>
+                    <td>prenom</td>
+                    <td>phone</td>
+                    <td>address</td>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+            <tfoot>
+                <tr>
+
+                    <td>numero de serie</td>
+                    <td>date</td>
+                    <td>Product</td>
+                    <td>nom</td>
+                    <td>prenom</td>
+                    <td>phone</td>
+                    <td>address</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    </div>
+    <script>
+        $(document).ready(function () {
+            var table = $('#example').dataTable({
+                responsive: true,
+                ajax: "/api/v1/dashboard/sales",
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/fr-FR.json',
+                },
+                "columns": [
+                    { 'data': 'serial_number' },
+                    {
+                        "data": "date",
+                        "render": function (data) {
+                            if(data) {
+                                const date = new Date(data);
+                                return date.toISOString().substring(0,10);
+                            }
+                            return "";
+                        }
+                    },
+                    { 'data': 'model' },
+                    { 'data': 'nom' },
+                    { 'data': 'prenom' },
+                    { 'data': 'phone' },
+                    { 'data': 'address' },
+                ]
+            });
+            new $.fn.dataTable.FixedHeader(table);
+        });
+    </script>
+        <!-- Row end -->
+<%- include('../../dashboard/partials/bottom.ejs') %>

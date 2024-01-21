@@ -1,0 +1,91 @@
+<%- include('../../dashboard/partials/top.ejs') %>
+<div class="main-content" style="background:white;">
+    <div class="row" style="
+    background: white;
+">
+        <div class="col-lg-12 col-sm-12">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col">
+                    <a href="#" class="block-140" style="border: none;">
+                        <div class="icon primary">
+                            <img src="/dashboard/img/profile.png" width="100%">
+                        </div>
+                        <h5 id="profile_name"></h5>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-sm-12">
+            <div class="">
+                <div class="row gutters">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <a href="#" class="block-140">
+                            <div class="icon primary">
+                                <i class="icon-shopping-cart2"></i>
+                            </div>
+                            <h5 id="point"></h5>
+                            <p class="point_text">Pallier</p>
+                        </a>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <a href="#" class="block-140">
+                            <div class="icon primary">
+                                <i class="icon-thumbs-up2"></i>
+                            </div>
+                            <h5 id="salesCount"></h5>
+                            <p class="ventes_text">Ventes</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- Row start -->
+        <div class="container">
+            <div class="userInfo">
+                <div class="title">
+                    <h3>Informations</h3>
+                </div>
+                <div class="col-lg-6 col-sm-12"><div class="userData"><span>address : </span><span id="address"></span></div></div>
+                <div class="col-lg-6 col-sm-12"><div class="userData" ><span>contactname : </span><span id="contactname"></span></div></div>
+                <div class="col-lg-6 col-sm-12"><div class="userData"><span>phone : </span><span id="phone"></span></div></div>
+                <div class="col-lg-6 col-sm-12"><div class="userData"><span>location : </span><span id="location"></span></div></div> 
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+        <style>
+            .userData {
+                padding:20px;
+                height:50px;
+            }
+        </style>
+        <script>
+            $(document).ready(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/api/v1/dashboard/profile",
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/fr-FR.json',
+                    },
+                    success: function (result) {
+                        $('#profile_name').text(result.data.pdvname);
+                        $('#address').text(result.data.address);
+                        $('#contactname').text(result.data.contactname);
+                        $('#phone').text(result.data.phone);
+                        $('#location').text(result.data.location);
+                        $('#commune').text(result.data.commune);
+                        $('#Daira').text(result.data.Daira);
+                        $('#wilaya').text(result.data.wilaya);
+                        $('#point').text(result.data.points);
+                        $('#salesCount').text(result.data.salesCount);
+                    },
+
+                    error: function (xhr, status, error) {
+                        alert('une erreur c\'est produite veuillez réesayer plus tard');
+                    },
+                });
+            });
+        </script>
+<%- include('../../dashboard/partials/bottom.ejs') %>

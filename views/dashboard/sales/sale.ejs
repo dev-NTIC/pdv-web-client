@@ -1,0 +1,204 @@
+<%- include('../../dashboard/partials/top.ejs') %>
+<script src=
+        "https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <div class="main-content">
+      <div class="row gutters">
+      <form>
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-body" style="padding:5%">
+              <div class="row gutters">
+                <div class="col-sm-4 col-12">
+                  <div class="form-group">
+                    <label for="product_id">model</label>
+                    <select class="form-control form-control-lg" name="product_id" id="product_id">
+                    </select>
+                    <span id="phone-error" class="error"></span>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-12">
+                  <div class="form-group">
+                    <label for="nom">Nom</label>
+                    <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom">
+                    <span id="nom-error" class="error"></span>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-12">
+                  <div class="form-group">
+                    <label for="prenom">Prénom</label>
+                    <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom">
+                    <span id="prenom-error" class="error"></span>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-12">
+                  <div class="form-group">
+                    <label for="phone">Téléphone</label>
+                    <input type="text" class="form-control" id="phone" name="phone" placeholder="phone">
+                  </div>
+                  <span id="phone-error" class="error"></span>
+                </div>
+                <div class="col-sm-8 col-12">
+                  <div class="form-group">
+                    <label for="addresse">Addresse</label>
+                    <input type="text" class="form-control" id="address" name="address" placeholder="addresse">
+                  </div>
+                  <span id="address-error" class="error"></span>
+                </div>
+                </div>
+              <div class="col-sm-6 col-12">
+                <div class="form-group">
+                </div>
+              </div>
+            </div>
+                <div class="col-12">
+                  <div style="width: 100%;text-align: center;">
+                    <div class="wrapper" style="padding-top:2em;display: inline-block; position: relative; padding: 0px; border: 1px solid silver;">
+                      <input type="hidden" name="serial_number" id="serial_number" />
+                      <section class="" id="">
+                        <div id="qr-reader"></div>
+                        <div id="qr-reader-results"></div>
+                        <span id="serial_number-error" class="error"></span>
+                      </section>
+                      <input width="100%" type="text" id="result" disabled="" style="height: 50px;width: 100%;text-align: center;">
+                    </div>
+                  </div>
+                  <button class="submit" style="float: right;-webkit-border-radius: 30px;-moz-border-radius: 30px;border-radius: 30px;padding: 8px 25px;background:red;border:red;color:white;margin-bottom:20px;">Valider</button>
+                </div>
+              </div>
+            </div>
+        <br />
+      </form>
+    </div>
+    </div>
+  <style>
+    .error{
+      color:red;
+    }
+  </style>
+
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script>
+      $("#phone").inputmask("Regex", { regex: "(05|06|07)[0-9]{8}$/" });
+      function docReady(fn) {
+        // see if DOM is already available
+        if (document.readyState === "complete"
+          || document.readyState === "interactive") {
+          // call on next available tick
+          setTimeout(fn, 1);
+        } else {
+          document.addEventListener("DOMContentLoaded", fn);
+        }
+      }
+
+      docReady(function () {
+        var resultContainer = document.getElementById('qr-reader-results');
+        var lastResult, countResults = 0;
+        function onScanSuccess(decodedText, decodedResult) {
+          if (decodedText !== lastResult) {
+            ++countResults;
+            lastResult = decodedText;
+            // Handle on success condition with the decoded message.
+            console.log(`Scan result ${decodedText}`, decodedResult);
+            const result = document.getElementById('result');
+            result.innerHTML = decodedText;
+            $('#serial_number').val(decodedText);
+            $('#result').val(decodedText);
+            $("#html5-qrcode-button-camera-stop").click()
+          }
+        }
+
+        var html5QrcodeScanner = new Html5QrcodeScanner(
+          "qr-reader", { fps: 10, qrbox: 450 });
+        html5QrcodeScanner.render(onScanSuccess);
+      });
+
+      /* populate the select*/
+      $.ajax({
+        url: `/api/v1/dashboard/products`,
+        type: "GET",
+        dataType: "json",
+        success: function (response) {
+          const modelSelect = $('#product_id');
+
+          modelSelect.append('<option value="none" selected disabled hidden> Veuillez selectionner un model</option>');
+
+          response.data.forEach(element => {
+
+            if (element.model) {
+              modelSelect.append(`<option value="${element.id}">${element.model}</option>`)
+            }
+          }
+          );
+
+        },
+        fail: function (data) {
+          //alert error
+          console.log("une erreur c'est produite, veuillez réesayer plus tard");
+        },
+      });
+
+      /* send sale*/
+      $("form").submit(function (event) {
+
+        event.preventDefault();
+        const data = {
+          "nom": $("#nom").val(),
+          "prenom": $("#prenom").val(),
+          "phone": $("#phone").val(),
+          "address": $("#address").val(),
+          "serial_number": $("#serial_number").val(),
+          "product_id": $("#product_id").val()
+        };
+
+        $('#html5-qrcode-button-camera-stop').click();
+
+        $.ajax({
+          type: "POST",
+          url: "/api/v1/dashboard/sales",
+          data: data,
+
+          success: function (result) {
+            $("#nom").val();
+            $("#prenom").val();
+            $("#phone").val();
+            $("#address").val();
+            $("#serial_number").val();
+            $("#product_id").val();
+            $("#result").val();
+            
+            Swal.fire({
+                icon: "success",
+                title: "Vente",
+                text: "Vente réelisée avec success",
+            });
+
+          },
+
+          error: function (xhr, status, error) {
+
+            let errors = xhr.responseJSON;
+            if (xhr.status === 422) {
+              let data = xhr.responseJSON;
+              Object.keys(errors.errors)
+                .forEach((element) =>
+                  $("#" + element + "-error").text(errors.errors[element])
+                );
+            } else {
+              if (xhr.status == 401) {
+                window.location.replace(`/login`);
+              } else {
+                Swal.fire({
+                icon: "error",
+                title: "Erreur",
+                text: xhr.responseJSON.data,
+            });
+              }
+            }
+          }
+        })
+      });
+    </script>
+  </body>
+
+  </html>

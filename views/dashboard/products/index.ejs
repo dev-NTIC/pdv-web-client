@@ -1,0 +1,46 @@
+<%- include('../../dashboard/partials/top.ejs') %>
+    <div class="main-content">
+    <div class="content">
+    <div class="tableTitle">Liste des Produits</div>
+    <div class="tableContainer">
+        <table id="example" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>model</th>
+                    <th>dimensions</th>
+                    <th>prix</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>model</th>
+                    <th>dimensions</th>
+                    <th>prix</th>
+                </tr>
+            </tfoot>
+        </table>
+
+        </div>
+    </div>
+</div>
+    <script>
+        $(document).ready(function () {
+            $('#example').dataTable({
+                responsive: true,
+                ajax: `/api/v1/dashboard/products`,
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/fr-FR.json',
+                },
+                "columns": [
+                    { 'data': 'model' },
+                    //{ 'data': 'category_id' },
+                    { 'data': 'dimensions' },
+                    { 'data': 'price' }
+                ]
+            });
+        });
+    </script>
+<%- include('../../dashboard/partials/bottom.ejs') %>
